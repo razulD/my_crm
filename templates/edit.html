@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Client</title>
+</head>
+<body>
+    <h1>Edit Client</h1>
+    <form action="/update/{{ client[0] }}" method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ client[1] }}" required><br><br>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" value="{{ client[2] }}" required><br><br>
+
+        <label>Status:</label>
+        <input type="text" name="status" value="{{ client[3] }}" required><br><br>
+
+        <button type="submit">Update Client</button>
+    </form>
+    <br>
+    <a href="/">Back to Dashboard</a>
+</body>
+</html>

@@ -1,0 +1,93 @@
+SIMPLE CRM SYSTEM
+
+> SHOWING LIST OF CUSTOMERS (MAIN DATABASE)
+  -- NAMES, NUMBERS, STATUS (NEW, IN PROGRESS, DONE)
+  -- QUICK EDIT / DELETE BUTTONS NEXT TO EACH CLIENT
+
+> CREATE NEW CLIENT
+  -- FORM TO ENTER: NAME, PHONE, INITIAL STATUS
+  -- "SAVE" BUTTON TO ADD TO DATABASE
+
+> CLIENT DOSSIER (DETAILED PROFILE)
+  -- CLICK ON CLIENT NAME TO OPEN
+  -- SHOWS FULL HISTORY AND TEXT NOTES (e.g., "Wants a discount")
+  -- ADD/EDIT/DELETE INFO SPECIFIC TO THIS CLIENT
+
+> TASK MANAGER & REMINDERS
+  -- SHOW LIST OF TO-DOs (e.g., "CALL BACK TOMORROW", "SEND DOCS")
+  -- CHECKBOX TO MARK TASK AS "DONE" (DISAPPEARS OR CROSSES OUT)
+  -- EACH TASK IS LINKED TO A SPECIFIC CLIENT
+
+> DASHBOARD (DAILY SUMMARY / HOME SCREEN)
+  -- BLOCK 1: URGENT/ACTIVE TASKS (WHAT TO DO NOW)
+  -- BLOCK 2: NEW LEADS (WHO TO CONTACT FIRST)
+
+> SEARCH & FILTERS
+  -- SEARCH BAR: FIND INSTANTLY BY NAME OR PART OF PHONE NUMBER
+  -- FILTER DROPDOWN: SHOW ONLY "IN PROGRESS" OR "NEW" CLIENTS
+
+> EXCEL EXPORT
+  -- "DOWNLOAD DB" BUTTON
+  -- SAVES ALL CURRENT CLIENT DATA TO A .XLSX FILE FOR BACKUP
+
+Phase 1: The Foundation (Database Schema)
+
+    File: scheme.sql
+
+    Design your clients table. It needs columns for an ID (primary key), name, phone, and status.
+
+    Design your tasks table. It needs an ID, a description, a status (done/pending), and—crucially—a client_id (foreign key) so the database knows exactly which task belongs to which client.
+
+    Run this SQL file to generate your crm.db file.
+
+Phase 2: The Skeleton (Routing & Base UI)
+
+    Files: app.py, templates/, static/
+
+    Set up your basic Python web server in app.py with a simple home route just to make sure it runs in your browser.
+
+    Create a base.html in your templates. This will hold your navigation bar and link to your CSS in the static folder. All other HTML files will inherit from this so you don't repeat the same layout code everywhere.
+
+Phase 3: Core Client Operations (Adding & Viewing)
+
+    Files: app.py, templates/
+
+    Build the HTML form to create a new client.
+
+    Write the backend logic in app.py to receive that form data and INSERT it into your database.
+
+    Write the logic to SELECT all clients from the database and pass them to a frontend template.
+
+    Build the main database UI (the table) to loop through those clients and display them. Add placeholders for your Edit/Delete buttons.
+
+Phase 4: The Client Dossier & Tasks (Connecting Data)
+
+    Files: app.py, templates/dossier.html
+
+    Create a dynamic route (e.g., /client/<id>) that fetches a single client based on the ID clicked in the main table.
+
+    Build the dossier UI to show that specific client's info.
+
+    Add a form in the dossier to create a new task for this client.
+
+    Write the backend logic to INSERT that task, making sure to save the current client's ID in that foreign key column.
+
+    Update the dossier route to also SELECT all tasks where the client_id matches, and display them as a to-do list.
+
+Phase 5: The Dashboard & Search (Filtering Data)
+
+    Files: app.py, templates/
+
+    For the Dashboard, you don't need new database tables. Just write specific SQL queries: one to fetch clients where status = 'new', and another to fetch tasks where status = 'pending'. Pass these to your home screen.
+
+    For the search bar, update your main client list route. Check if the user typed something. If they did, change your query to use WHERE name LIKE %search_term% or check the phone number.
+
+    Do the exact same logic for the filter dropdown (e.g., WHERE status = 'in progress').
+
+Phase 6: Excel Export (Utilities)
+
+    Files: utils/, app.py
+
+    Write a helper script in your utils folder that connects to the database, selects all clients, and uses a Python library to write that data to an .xlsx file.
+
+    Create a route in app.py tied to a "Download" button that triggers this script and sends the file to the user's browser.

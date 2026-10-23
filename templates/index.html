@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRM Dashboard</title>
+</head>
+<body>
+    <h1>Add New Client</h1>
+    <form action="/add" method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" required><br><br>
+
+        <label>Status:</label>
+        <input type="text" name="status" value="NEW" required><br><br>
+
+        <button type="submit">Add Client</button>
+    </form>
+
+    <h2>Customer List</h2>
+    <ul>
+        {% for client in clients %}
+            <li>{{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})</li>
+        {% endfor %}
+    </ul>
+    <ul>
+    {% for client in clients %}
+        <li>
+            {{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})
+            <a href="/delete/{{ client[0] }}" style="color: red; margin-left: 10px;">[Delete]</a>
+        </li>
+    {% endfor %}
+    <ul>
+    {% for client in clients %}
+        <li>
+            {{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})
+            <a href="/delete/{{ client[0] }}" style="color: red; margin-left: 10px;">[Delete]</a>
+            <a href="/edit/{{ client[0] }}" style="color: blue; margin-left: 5px;">[Edit]</a>
+        </li>
+    {% endfor %}
+</ul>
+</ul>
+</body>
+</html>

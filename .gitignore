@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv/
+crm.db
+.env
+__pycache__/
+*.pyc
