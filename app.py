@@ -1,15 +1,20 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 app = Flask(__name__)
-
+def get_db():
+	return sqlite3.connect('crm.db')
 @app.route('/')
 def home():
-	conn = sqlite3.connect('crm.db')
+	search_query = request.args.get('q', '')
+	conn = get_db()
 	cursor = conn.cursor()
-	cursor.execute("SELECT * FROM clients")
+	if search_query:
+		cursor.execute("SELECT * FROM clients WHERE name LIKE ?", ('%' + search_query + '%',))
+	else:
+		cursor.execute("SELECT * FROM clients")
 	clients = cursor.fetchall()
 	conn.close()
-	return render_template('index.html' , clients=clients)
+	return render_template('index.html', clients=clients, search_query=search_query)
 @app.route('/add', methods=['POST'])
 def add_client():
 	name = request.form['name']

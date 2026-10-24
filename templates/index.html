@@ -19,27 +19,21 @@
     </form>
 
     <h2>Customer List</h2>
+
+    <form action="/" method="GET" style="margin-bottom: 15px;">
+        <input type="text" name="q" placeholder="Search by name..." value="{{ search_query }}">
+        <button type="submit">Search</button>
+        <a href="/">Clear</a>
+    </form>
+
     <ul>
         {% for client in clients %}
-            <li>{{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})</li>
+            <li>
+                {{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})
+                <a href="/delete/{{ client[0] }}" style="color: red; margin-left: 10px;">[Delete]</a>
+                <a href="/edit/{{ client[0] }}" style="color: blue; margin-left: 5px;">[Edit]</a>
+            </li>
         {% endfor %}
     </ul>
-    <ul>
-    {% for client in clients %}
-        <li>
-            {{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})
-            <a href="/delete/{{ client[0] }}" style="color: red; margin-left: 10px;">[Delete]</a>
-        </li>
-    {% endfor %}
-    <ul>
-    {% for client in clients %}
-        <li>
-            {{ client[1] }} - {{ client[2] }} (Status: {{ client[3] }})
-            <a href="/delete/{{ client[0] }}" style="color: red; margin-left: 10px;">[Delete]</a>
-            <a href="/edit/{{ client[0] }}" style="color: blue; margin-left: 5px;">[Edit]</a>
-        </li>
-    {% endfor %}
-</ul>
-</ul>
 </body>
 </html>

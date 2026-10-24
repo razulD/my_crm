@@ -5,3 +5,7 @@ crm.db
 .env
 __pycache__/
 *.pyc
+crm.db
+.env
+__pycache__/
+*.pyc
